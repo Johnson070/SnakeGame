@@ -1,6 +1,6 @@
 ﻿namespace SnakeGame
 {
-    partial class unlockDoor
+    partial class confirmForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
             this.scoreUnlock = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
+            this.confirm = new System.Windows.Forms.Button();
+            this.direction = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.scoreUnlock)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // label
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(313, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Кол-во очков для разблокировки двери";
+            this.label.AutoSize = true;
+            this.label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label.Location = new System.Drawing.Point(12, 9);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(313, 20);
+            this.label.TabIndex = 0;
+            this.label.Text = "Кол-во очков для разблокировки двери";
             // 
             // scoreUnlock
             // 
@@ -66,26 +67,42 @@
             0,
             0});
             // 
-            // button1
+            // confirm
             // 
-            this.button1.Location = new System.Drawing.Point(16, 58);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(309, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Подтвердить";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.confirm.Location = new System.Drawing.Point(16, 58);
+            this.confirm.Name = "confirm";
+            this.confirm.Size = new System.Drawing.Size(309, 23);
+            this.confirm.TabIndex = 2;
+            this.confirm.Text = "Подтвердить";
+            this.confirm.UseVisualStyleBackColor = true;
+            this.confirm.Click += new System.EventHandler(this.confirm_Click);
             // 
-            // unlockDoor
+            // direction
+            // 
+            this.direction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.direction.FormattingEnabled = true;
+            this.direction.Items.AddRange(new object[] {
+            "Вверх",
+            "Вправо",
+            "Вниз",
+            "Влево"});
+            this.direction.Location = new System.Drawing.Point(107, 31);
+            this.direction.Name = "direction";
+            this.direction.Size = new System.Drawing.Size(121, 21);
+            this.direction.TabIndex = 3;
+            this.direction.Visible = false;
+            // 
+            // confirmForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(339, 90);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.confirm);
+            this.Controls.Add(this.label);
+            this.Controls.Add(this.direction);
             this.Controls.Add(this.scoreUnlock);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "unlockDoor";
+            this.Name = "confirmForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Введите значение";
             ((System.ComponentModel.ISupportInitialize)(this.scoreUnlock)).EndInit();
@@ -95,9 +112,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         public System.Windows.Forms.NumericUpDown scoreUnlock;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button confirm;
+        public System.Windows.Forms.Label label;
+        public System.Windows.Forms.ComboBox direction;
     }
 }

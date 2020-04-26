@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelGameCreator));
             this.tabLevel = new System.Windows.Forms.TabControl();
             this.tabTable = new System.Windows.Forms.TabPage();
             this.table = new System.Windows.Forms.Panel();
@@ -38,12 +39,12 @@
             this.block3 = new System.Windows.Forms.ToolStripMenuItem();
             this.block4 = new System.Windows.Forms.ToolStripMenuItem();
             this.clearCell = new System.Windows.Forms.ToolStripMenuItem();
-            this.тестJsonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.проверкаЕдыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testFoodMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.сохранитьУровеньToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.загрузитьУровеньToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveLevelSnake = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadLevel = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.scoreTest = new System.Windows.Forms.TrackBar();
             this.timeLevel = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.foodGenTime = new System.Windows.Forms.NumericUpDown();
@@ -63,6 +64,7 @@
             this.tabTable.SuspendLayout();
             this.rightClickMenu.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scoreTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.foodGenTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scoreWin)).BeginInit();
@@ -115,19 +117,19 @@
             this.block3,
             this.block4,
             this.clearCell,
-            this.тестJsonToolStripMenuItem,
-            this.проверкаЕдыToolStripMenuItem,
+            this.testFoodMenu,
             this.toolStripSeparator1,
-            this.сохранитьУровеньToolStripMenuItem,
-            this.загрузитьУровеньToolStripMenuItem});
+            this.saveLevelSnake,
+            this.loadLevel});
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(216, 230);
+            this.rightClickMenu.Size = new System.Drawing.Size(256, 208);
             // 
             // block1
             // 
             this.block1.Image = global::snakeGame.Properties.Resources.block1;
             this.block1.Name = "block1";
-            this.block1.Size = new System.Drawing.Size(215, 22);
+            this.block1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+            this.block1.Size = new System.Drawing.Size(255, 22);
             this.block1.Text = "Блок-стены";
             this.block1.Click += new System.EventHandler(this.selectBlock);
             // 
@@ -135,7 +137,8 @@
             // 
             this.block2.Image = global::snakeGame.Properties.Resources.block2;
             this.block2.Name = "block2";
-            this.block2.Size = new System.Drawing.Size(215, 22);
+            this.block2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
+            this.block2.Size = new System.Drawing.Size(255, 22);
             this.block2.Text = "Блок-двери";
             this.block2.Click += new System.EventHandler(this.selectBlock);
             // 
@@ -143,7 +146,8 @@
             // 
             this.block3.Image = global::snakeGame.Properties.Resources.block3;
             this.block3.Name = "block3";
-            this.block3.Size = new System.Drawing.Size(215, 22);
+            this.block3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
+            this.block3.Size = new System.Drawing.Size(255, 22);
             this.block3.Text = "Место спавна";
             this.block3.Click += new System.EventHandler(this.selectBlock);
             // 
@@ -151,53 +155,50 @@
             // 
             this.block4.Image = global::snakeGame.Properties.Resources.block4;
             this.block4.Name = "block4";
-            this.block4.Size = new System.Drawing.Size(215, 22);
+            this.block4.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
+            this.block4.Size = new System.Drawing.Size(255, 22);
             this.block4.Text = "Блок-завершение уровня";
             this.block4.Click += new System.EventHandler(this.selectBlock);
             // 
             // clearCell
             // 
             this.clearCell.Name = "clearCell";
-            this.clearCell.Size = new System.Drawing.Size(215, 22);
+            this.clearCell.Size = new System.Drawing.Size(255, 22);
             this.clearCell.Text = "Стереть";
             this.clearCell.Click += new System.EventHandler(this.selectBlock);
             // 
-            // тестJsonToolStripMenuItem
+            // testFoodMenu
             // 
-            this.тестJsonToolStripMenuItem.Name = "тестJsonToolStripMenuItem";
-            this.тестJsonToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.тестJsonToolStripMenuItem.Text = "Тест json";
-            this.тестJsonToolStripMenuItem.Click += new System.EventHandler(this.testJson);
-            // 
-            // проверкаЕдыToolStripMenuItem
-            // 
-            this.проверкаЕдыToolStripMenuItem.Name = "проверкаЕдыToolStripMenuItem";
-            this.проверкаЕдыToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.проверкаЕдыToolStripMenuItem.Text = "Проверка еды";
-            this.проверкаЕдыToolStripMenuItem.Click += new System.EventHandler(this.testFood);
+            this.testFoodMenu.Name = "testFoodMenu";
+            this.testFoodMenu.Size = new System.Drawing.Size(255, 22);
+            this.testFoodMenu.Text = "Проверка еды";
+            this.testFoodMenu.Click += new System.EventHandler(this.testFood);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(212, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(252, 6);
             // 
-            // сохранитьУровеньToolStripMenuItem
+            // saveLevelSnake
             // 
-            this.сохранитьУровеньToolStripMenuItem.Name = "сохранитьУровеньToolStripMenuItem";
-            this.сохранитьУровеньToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.сохранитьУровеньToolStripMenuItem.Text = "Сохранить уровень";
-            this.сохранитьУровеньToolStripMenuItem.Click += new System.EventHandler(this.saveLevel);
+            this.saveLevelSnake.Name = "saveLevelSnake";
+            this.saveLevelSnake.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveLevelSnake.Size = new System.Drawing.Size(255, 22);
+            this.saveLevelSnake.Text = "Сохранить уровень";
+            this.saveLevelSnake.Click += new System.EventHandler(this.saveLevel);
             // 
-            // загрузитьУровеньToolStripMenuItem
+            // loadLevel
             // 
-            this.загрузитьУровеньToolStripMenuItem.Name = "загрузитьУровеньToolStripMenuItem";
-            this.загрузитьУровеньToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.загрузитьУровеньToolStripMenuItem.Text = "Загрузить уровень";
-            this.загрузитьУровеньToolStripMenuItem.Click += new System.EventHandler(this.testLoadLevel);
+            this.loadLevel.Name = "loadLevel";
+            this.loadLevel.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.loadLevel.Size = new System.Drawing.Size(255, 22);
+            this.loadLevel.Text = "Загрузить уровень";
+            this.loadLevel.Click += new System.EventHandler(this.testLoadLevel);
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.scoreTest);
             this.tabPage2.Controls.Add(this.timeLevel);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.foodGenTime);
@@ -220,9 +221,22 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Настройки";
             // 
+            // scoreTest
+            // 
+            this.scoreTest.Location = new System.Drawing.Point(250, 168);
+            this.scoreTest.Maximum = 100;
+            this.scoreTest.Name = "scoreTest";
+            this.scoreTest.Size = new System.Drawing.Size(218, 45);
+            this.scoreTest.TabIndex = 25;
+            // 
             // timeLevel
             // 
             this.timeLevel.Location = new System.Drawing.Point(303, 97);
+            this.timeLevel.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
             this.timeLevel.Name = "timeLevel";
             this.timeLevel.Size = new System.Drawing.Size(120, 20);
             this.timeLevel.TabIndex = 24;
@@ -304,7 +318,7 @@
             // tableYSize
             // 
             this.tableYSize.Location = new System.Drawing.Point(10, 97);
-            this.tableYSize.Maximum = 50;
+            this.tableYSize.Maximum = 100;
             this.tableYSize.Minimum = 10;
             this.tableYSize.Name = "tableYSize";
             this.tableYSize.Size = new System.Drawing.Size(218, 45);
@@ -381,7 +395,7 @@
             // tableXSize
             // 
             this.tableXSize.Location = new System.Drawing.Point(10, 26);
-            this.tableXSize.Maximum = 50;
+            this.tableXSize.Maximum = 100;
             this.tableXSize.Minimum = 10;
             this.tableXSize.Name = "tableXSize";
             this.tableXSize.Size = new System.Drawing.Size(218, 45);
@@ -395,7 +409,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(504, 441);
             this.Controls.Add(this.tabLevel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelGameCreator";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Редактор уровня";
             this.Shown += new System.EventHandler(this.LevelGameCreator_Shown);
             this.Resize += new System.EventHandler(this.LevelGameCreator_Resize);
@@ -404,6 +420,7 @@
             this.rightClickMenu.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scoreTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.foodGenTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scoreWin)).EndInit();
@@ -438,14 +455,14 @@
         private System.Windows.Forms.ToolStripMenuItem block4;
         private System.Windows.Forms.NumericUpDown scoreWin;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ToolStripMenuItem тестJsonToolStripMenuItem;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown foodGenTime;
         private System.Windows.Forms.NumericUpDown timeLevel;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ToolStripMenuItem проверкаЕдыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testFoodMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьУровеньToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem загрузитьУровеньToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveLevelSnake;
+        private System.Windows.Forms.ToolStripMenuItem loadLevel;
+        private System.Windows.Forms.TrackBar scoreTest;
     }
 }

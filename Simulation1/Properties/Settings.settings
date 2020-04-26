@@ -6,7 +6,7 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="cellSize" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">35</Value>
     </Setting>
     <Setting Name="timeFood" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">4000</Value>
@@ -19,6 +19,18 @@
     </Setting>
     <Setting Name="numCellsY" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="rightControl" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">Right</Value>
+    </Setting>
+    <Setting Name="leftControl" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">Left</Value>
+    </Setting>
+    <Setting Name="upControl" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">Up</Value>
+    </Setting>
+    <Setting Name="downControl" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">Down</Value>
     </Setting>
   </Settings>
 </SettingsFile>

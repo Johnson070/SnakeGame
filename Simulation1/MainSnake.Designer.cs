@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainSnake));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableSnakePanel = new System.Windows.Forms.Panel();
+            this.boxControls = new System.Windows.Forms.GroupBox();
             this.SettingForm = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.gameButton = new System.Windows.Forms.Button();
@@ -40,40 +40,42 @@
             this.snakeGameTool = new System.Windows.Forms.ToolStrip();
             this.snakeLevels = new System.Windows.Forms.ToolStripDropDownButton();
             this.openLeverEditor = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadLevel = new System.Windows.Forms.ToolStripMenuItem();
             this.main = new System.Windows.Forms.ToolStripDropDownButton();
             this.settingsGame = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadLevel = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1.SuspendLayout();
+            this.controlSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.infiinityGame = new System.Windows.Forms.ToolStripMenuItem();
+            this.boxControls.SuspendLayout();
             this.snakeGameTool.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // tableSnakePanel
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableSnakePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.AutoScroll = true;
-            this.panel1.Location = new System.Drawing.Point(12, 118);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(414, 429);
-            this.panel1.TabIndex = 4;
-            this.panel1.Click += new System.EventHandler(this.panel1_Click);
-            this.panel1.Resize += new System.EventHandler(this.panel1_Resize);
+            this.tableSnakePanel.AutoScroll = true;
+            this.tableSnakePanel.Location = new System.Drawing.Point(12, 118);
+            this.tableSnakePanel.Name = "tableSnakePanel";
+            this.tableSnakePanel.Size = new System.Drawing.Size(414, 429);
+            this.tableSnakePanel.TabIndex = 4;
+            this.tableSnakePanel.Click += new System.EventHandler(this.panel1_Click);
+            this.tableSnakePanel.Resize += new System.EventHandler(this.panel1_Resize);
             // 
-            // groupBox1
+            // boxControls
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.boxControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.SettingForm);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.gameButton);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 28);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(414, 84);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Игра";
+            this.boxControls.Controls.Add(this.SettingForm);
+            this.boxControls.Controls.Add(this.label2);
+            this.boxControls.Controls.Add(this.gameButton);
+            this.boxControls.Controls.Add(this.label1);
+            this.boxControls.Location = new System.Drawing.Point(12, 28);
+            this.boxControls.Name = "boxControls";
+            this.boxControls.Size = new System.Drawing.Size(414, 84);
+            this.boxControls.TabIndex = 5;
+            this.boxControls.TabStop = false;
+            this.boxControls.Text = "Игра";
             // 
             // SettingForm
             // 
@@ -137,7 +139,8 @@
             this.snakeLevels.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.snakeLevels.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openLeverEditor,
-            this.loadLevel});
+            this.loadLevel,
+            this.infiinityGame});
             this.snakeLevels.Image = ((System.Drawing.Image)(resources.GetObject("snakeLevels.Image")));
             this.snakeLevels.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.snakeLevels.Name = "snakeLevels";
@@ -152,11 +155,19 @@
             this.openLeverEditor.Text = "Открыть редактор уровней";
             this.openLeverEditor.Click += new System.EventHandler(this.openLeverEditor_Click);
             // 
+            // loadLevel
+            // 
+            this.loadLevel.Name = "loadLevel";
+            this.loadLevel.Size = new System.Drawing.Size(223, 22);
+            this.loadLevel.Text = "Открыть уровень";
+            this.loadLevel.Click += new System.EventHandler(this.loadLevel_Click);
+            // 
             // main
             // 
             this.main.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.main.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsGame});
+            this.settingsGame,
+            this.controlSettings});
             this.main.Image = ((System.Drawing.Image)(resources.GetObject("main.Image")));
             this.main.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.main.Name = "main";
@@ -167,16 +178,23 @@
             // settingsGame
             // 
             this.settingsGame.Name = "settingsGame";
-            this.settingsGame.Size = new System.Drawing.Size(180, 22);
-            this.settingsGame.Text = "Настройки игры";
+            this.settingsGame.Size = new System.Drawing.Size(248, 22);
+            this.settingsGame.Text = "Настройки игры(Бесконечный)";
             this.settingsGame.Click += new System.EventHandler(this.SettingForm_Click);
             // 
-            // loadLevel
+            // controlSettings
             // 
-            this.loadLevel.Name = "loadLevel";
-            this.loadLevel.Size = new System.Drawing.Size(223, 22);
-            this.loadLevel.Text = "Открыть уровень";
-            this.loadLevel.Click += new System.EventHandler(this.loadLevel_Click);
+            this.controlSettings.Name = "controlSettings";
+            this.controlSettings.Size = new System.Drawing.Size(248, 22);
+            this.controlSettings.Text = "Настройка управления";
+            this.controlSettings.Click += new System.EventHandler(this.controlSetting_Click);
+            // 
+            // infiinityGame
+            // 
+            this.infiinityGame.Name = "infiinityGame";
+            this.infiinityGame.Size = new System.Drawing.Size(223, 22);
+            this.infiinityGame.Text = "Бесконечная игра";
+            this.infiinityGame.Click += new System.EventHandler(this.infiinityGame_Click);
             // 
             // MainSnake
             // 
@@ -184,15 +202,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(438, 559);
             this.Controls.Add(this.snakeGameTool);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.boxControls);
+            this.Controls.Add(this.tableSnakePanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "MainSnake";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Змейка";
             this.Shown += new System.EventHandler(this.loadForm);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.boxControls.ResumeLayout(false);
+            this.boxControls.PerformLayout();
             this.snakeGameTool.ResumeLayout(false);
             this.snakeGameTool.PerformLayout();
             this.ResumeLayout(false);
@@ -201,8 +220,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel tableSnakePanel;
+        private System.Windows.Forms.GroupBox boxControls;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer updateData;
         private System.Windows.Forms.Button gameButton;
@@ -214,6 +233,8 @@
         private System.Windows.Forms.ToolStripMenuItem settingsGame;
         private System.Windows.Forms.ToolStripMenuItem openLeverEditor;
         private System.Windows.Forms.ToolStripMenuItem loadLevel;
+        private System.Windows.Forms.ToolStripMenuItem controlSettings;
+        private System.Windows.Forms.ToolStripMenuItem infiinityGame;
     }
 }
 

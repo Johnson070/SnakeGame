@@ -58,7 +58,6 @@ namespace SnakeGame
                 if (block[2] == 2)
                 {
                     foodPos.Add(new int[] { block[0], block[1] });
-                    break;
                 }
             }
 
@@ -90,7 +89,7 @@ namespace SnakeGame
 
             //foreach (int[] point in foodPos)
             //{
-            //    snakeTable.FillRectangle(Brushes.Red, 1 + point[0] * sizeCellTable.Value, 1 + point[1] * sizeCellTable.Value, sizeCellTable.Value - 1, sizeCellTable.Value - 1);
+            //    snakeTable.FillRectangle(Brushes.Red, 1 + point[0] * cellSize, 1 + point[1] * cellSize, cellSize - 1, cellSize - 1);
             //}
 
             foodTable = foodPos;
@@ -293,7 +292,7 @@ namespace SnakeGame
 
         public void snakeDraw()
         {
-            snakeTable.FillRectangle(Brushes.Red, 1 + snakeBody[snakeBody.Count - 1][0] * cellSize, 1 + snakeBody[snakeBody.Count - 1][1] * cellSize, cellSize - 1, cellSize - 1);
+            snakeTable.FillRectangle(Brushes.Green, 1 + snakeBody[snakeBody.Count - 1][0] * cellSize, 1 + snakeBody[snakeBody.Count - 1][1] * cellSize, cellSize - 1, cellSize - 1);
 
             if (delSnakePart)
             {

@@ -37,7 +37,7 @@ namespace snakeGame.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("35")]
         public int cellSize {
             get {
                 return ((int)(this["cellSize"]));
@@ -92,6 +92,54 @@ namespace snakeGame.Properties {
             }
             set {
                 this["numCellsY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Right")]
+        public global::System.Windows.Forms.Keys rightControl {
+            get {
+                return ((global::System.Windows.Forms.Keys)(this["rightControl"]));
+            }
+            set {
+                this["rightControl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Left")]
+        public global::System.Windows.Forms.Keys leftControl {
+            get {
+                return ((global::System.Windows.Forms.Keys)(this["leftControl"]));
+            }
+            set {
+                this["leftControl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Up")]
+        public global::System.Windows.Forms.Keys upControl {
+            get {
+                return ((global::System.Windows.Forms.Keys)(this["upControl"]));
+            }
+            set {
+                this["upControl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Down")]
+        public global::System.Windows.Forms.Keys downControl {
+            get {
+                return ((global::System.Windows.Forms.Keys)(this["downControl"]));
+            }
+            set {
+                this["downControl"] = value;
             }
         }
     }

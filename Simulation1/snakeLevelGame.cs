@@ -58,7 +58,7 @@ namespace SnakeGame
                             break;
                         case 3:
                             if (game.scoreWin <= snakeStats.score) table.FillRectangle(Brushes.LightGreen, 1 + point[0] * game.cellSize, 1 + point[1] * game.cellSize, game.cellSize - 1, game.cellSize - 1);
-                            //else table.FillRectangle(Brushes.White, 1 + point[0] * game.cellSize, 1 + point[1] * game.cellSize, game.cellSize - 1, game.cellSize - 1);
+                            else table.FillRectangle(Brushes.White, 1 + point[0] * game.cellSize, 1 + point[1] * game.cellSize, game.cellSize - 1, game.cellSize - 1);
                             break;
 
                     }
@@ -83,8 +83,8 @@ namespace SnakeGame
                 try
                 {
                     game = JsonConvert.DeserializeObject<structLevelGame>(json);
-                    return json;
                     MessageBox.Show("Уровень загружен!\nЧтобы пройти уровень нам нужно набрать " + game.scoreWin + " очков!\n" + (game.timeLeft > 0 ? ("Время на прохождения уровня: "+(game.timeLeft / 60) + " мин " + (game.timeLeft - (((game.timeLeft / 60) * 60))) + " сек") : ""), "Файл был успешно прочитан", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return json;
                 }
                 catch
                 {

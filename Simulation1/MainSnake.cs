@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SnakeGame
@@ -14,6 +15,7 @@ namespace SnakeGame
         Timer timerFood { get; set; }
         Timer timerSnake { get; set; }
         int lastScore = 0;
+        int direction = 2;
 
         public MainSnake()
         {
@@ -86,7 +88,7 @@ namespace SnakeGame
             }
         }
 
-        private void newGame(int[] numCells, int cellSize, bool barrier)
+        private void newGame(int[] numCells, int cellSize, bool barrier, int direction)
         {
             snakeClass = null;
 
@@ -98,11 +100,11 @@ namespace SnakeGame
                 {
                     if (startPos[2] == 2)
                     {
-                        snakeClass = new snake(numCells[0], numCells[1], cellSize, rnd.Next(1,4), Graphics.FromHwnd(panel1.Handle), barrier, new int[] { startPos[0], startPos[1] });
+                        snakeClass = new snake(numCells[0], numCells[1], cellSize, direction, Graphics.FromHwnd(tableSnakePanel.Handle), barrier, new int[] { startPos[0], startPos[1] });
                     }
                 }
             }
-            else snakeClass = new snake(numCells[0], numCells[1], cellSize, rnd.Next(1, 4), Graphics.FromHwnd(panel1.Handle), barrier, new int[] { 0, 0 });
+            else snakeClass = new snake(numCells[0], numCells[1], cellSize, 2, Graphics.FromHwnd(tableSnakePanel.Handle), barrier, new int[] { 0, 0 });
 
 
 
@@ -127,17 +129,24 @@ namespace SnakeGame
                 _directionPast = snakeClass.direction;
             }
 
-            switch (keyData)
-            {
-                case Keys.Up: _direction = 1; break;//вверх
-                case Keys.Down: _direction = 3; break;   //вниз
-                case Keys.Right: _direction = 2; break;   //вправо
-                case Keys.Left: _direction = 4; break;   //влево
-                case Keys.G: snakeClass.gameOver = true; break;
-                case Keys.B: snakeClass.barrier = !snakeClass.barrier; break;
-                //case Keys.L: snakeClass.eatFoodTrigger += 100; break;
-                default: return base.ProcessCmdKey(ref msg, keyData);
-            }
+            //switch (keyData)
+            //{
+            //    case snakeGame.Properties.Settings.Default.upControl: _direction = 1; break;//вверх
+            //    case Keys.Down: _direction = 3; break;   //вниз
+            //    case Keys.Right: _direction = 2; break;   //вправо
+            //    case Keys.Left: _direction = 4; break;   //влево
+            //    case Keys.G: snakeClass.gameOver = true; break;
+            //    case Keys.B: snakeClass.barrier = !snakeClass.barrier; break;
+            //    //case Keys.L: snakeClass.eatFoodTrigger += 100; break;
+            //    default: return base.ProcessCmdKey(ref msg, keyData);
+            //}
+
+            if (keyData == snakeGame.Properties.Settings.Default.upControl) _direction = 1;
+            else if (keyData == snakeGame.Properties.Settings.Default.downControl) _direction = 3;
+            else if (keyData == snakeGame.Properties.Settings.Default.rightControl) _direction = 2;
+            else if (keyData == snakeGame.Properties.Settings.Default.leftControl) _direction = 4;
+            else if (keyData == Keys.G) snakeClass.gameOver = true;
+            else return base.ProcessCmdKey(ref msg, keyData);
 
             if (Math.Abs(_direction - _directionPast) != 2)
                 snakeClass.direction = _direction;
@@ -149,7 +158,7 @@ namespace SnakeGame
         {
             if (snakeClass != null)
             {
-                snakeClass.resize(Graphics.FromHwnd(panel1.Handle));
+                snakeClass.resize(Graphics.FromHwnd(tableSnakePanel.Handle));
                 snakeClass.drawLines();
             }
         }
@@ -168,11 +177,13 @@ namespace SnakeGame
 
         private void gameButton_Click(object sender, EventArgs e)
         {
+            Task.Delay(2000);
+
             if (snakeClass == null || snakeClass.gameOver)
             {
-                levelClass.game = JsonConvert.DeserializeObject<structLevelGame>(level);
+                if (levelClass != null) levelClass.game = JsonConvert.DeserializeObject<structLevelGame>(level);
 
-                newGame(levelClass == null ? new int[] { snakeGame.Properties.Settings.Default.numCellsX, snakeGame.Properties.Settings.Default.numCellsY } : new int[] { levelClass.game.tableSize[0], levelClass.game.tableSize[1] }, levelClass == null ? snakeGame.Properties.Settings.Default.cellSize : levelClass.game.cellSize, levelClass == null ? snakeGame.Properties.Settings.Default.barrier : levelClass.game.barrier);
+                newGame(levelClass == null ? new int[] { snakeGame.Properties.Settings.Default.numCellsX, snakeGame.Properties.Settings.Default.numCellsY } : new int[] { levelClass.game.tableSize[0], levelClass.game.tableSize[1] }, levelClass == null ? snakeGame.Properties.Settings.Default.cellSize : levelClass.game.cellSize, levelClass == null ? snakeGame.Properties.Settings.Default.barrier : levelClass.game.barrier, direction);
                 if (levelClass != null)
                 {
                     levelClass.drawLevel(snakeClass.snakeTable, snakeClass.stata);
@@ -200,6 +211,8 @@ namespace SnakeGame
             Settings frm = new Settings();
 
             frm.ShowDialog();
+
+            newGame(new int[] { snakeGame.Properties.Settings.Default.numCellsX, snakeGame.Properties.Settings.Default.numCellsY }, snakeGame.Properties.Settings.Default.cellSize, snakeGame.Properties.Settings.Default.barrier, direction);
         }
 
         private int map(long x, long in_min, long in_max, long out_min, long out_max)
@@ -221,7 +234,7 @@ namespace SnakeGame
 
         private void loadForm(object sender, EventArgs e)
         {
-            newGame(new int[] { snakeGame.Properties.Settings.Default.numCellsX, snakeGame.Properties.Settings.Default.numCellsY }, snakeGame.Properties.Settings.Default.cellSize, snakeGame.Properties.Settings.Default.barrier);
+            newGame(new int[] { snakeGame.Properties.Settings.Default.numCellsX, snakeGame.Properties.Settings.Default.numCellsY }, snakeGame.Properties.Settings.Default.cellSize, snakeGame.Properties.Settings.Default.barrier, direction);
         }
 
         private void loadLevel_Click(object sender, EventArgs e)
@@ -232,17 +245,39 @@ namespace SnakeGame
 
             if (levelClass.game != null)
             {
+                foreach (int[] block in levelClass.game.table)
+                {
+                    if (block[2] == 2)
+                    {
+                        direction = block[3];
+                        break;
+                    }
+                }
+
                 while (levelClass.game.tableSize[0] * levelClass.game.cellSize * levelClass.game.tableSize[1] * levelClass.game.cellSize < 250000)
                 {
                     levelClass.game.cellSize -= 1;
                 }
 
 
-                newGame(new int[] { levelClass.game.tableSize[0], levelClass.game.tableSize[1] }, levelClass.game.cellSize, levelClass.game.barrier);
+                newGame(new int[] { levelClass.game.tableSize[0], levelClass.game.tableSize[1] }, levelClass.game.cellSize, levelClass.game.barrier, direction);
 
                 levelClass.drawLevel(snakeClass.snakeTable, snakeClass.stata);
                 snakeClass.foodMap(levelClass.game);
             }
+        }
+
+        private void controlSetting_Click(object sender, EventArgs e)
+        {
+            controlsSetting cntr = new controlsSetting();
+
+            cntr.ShowDialog();
+        }
+
+        private void infiinityGame_Click(object sender, EventArgs e)
+        {
+            levelClass = null;
+            newGame(new int[] { snakeGame.Properties.Settings.Default.numCellsX, snakeGame.Properties.Settings.Default.numCellsY }, snakeGame.Properties.Settings.Default.cellSize, snakeGame.Properties.Settings.Default.barrier, direction);
         }
     }
 }

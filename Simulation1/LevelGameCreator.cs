@@ -56,6 +56,21 @@ namespace SnakeGame
                 }
 
                 snakeTable.FillRectangle(br, 1 + block[0] * sizeCellTable.Value, 1 + block[1] * sizeCellTable.Value, sizeCellTable.Value - 1, sizeCellTable.Value - 1);
+            
+                if (block[2] == 2)
+                {
+                    int[] pos = new int[2] { 0,0};
+
+                    switch (block[3])
+                    {
+                        case 1: pos[1] = -sizeCellTable.Value / 2; break;
+                        case 2: pos[0] = sizeCellTable.Value / 2; break;
+                        case 3: pos[1] = sizeCellTable.Value / 2; break;
+                        case 4: pos[0] = -sizeCellTable.Value / 2; break;
+                    }
+
+                    snakeTable.DrawLine(new Pen(Color.Red), block[0] * sizeCellTable.Value + sizeCellTable.Value / 2, block[1] * sizeCellTable.Value + sizeCellTable.Value / 2, block[0] * sizeCellTable.Value + sizeCellTable.Value / 2 - pos[0], block[1] * sizeCellTable.Value + sizeCellTable.Value / 2 + pos[1]);
+                }
             }
         }
 
@@ -114,18 +129,62 @@ namespace SnakeGame
             {
                 if (menuSelectBlock == 1)
                 {
-                    unlockDoor scoreDoor = new unlockDoor();
+                    confirmForm scoreDoor = new confirmForm();
 
                     scoreDoor.ShowDialog();
 
                     int score = Convert.ToInt32(scoreDoor.scoreUnlock.Value);
 
-                    if (score != 0) blocks.Add(new int[] { cell[0], cell[1], menuSelectBlock, score }); else br = Brushes.White;
+                    if (score != 0)
+                    {
+                        blocks.Add(new int[] { cell[0], cell[1], menuSelectBlock, score });
+                        snakeTable.FillRectangle(br, 1 + cell[0] * sizeCellTable.Value, 1 + cell[1] * sizeCellTable.Value, sizeCellTable.Value - 1, sizeCellTable.Value - 1);
+                    }
+                    else br = Brushes.White;
                 }
-                else blocks.Add(new int[] { cell[0], cell[1], menuSelectBlock });
-            }
+                else if (menuSelectBlock == 2)
+                {
+                    confirmForm direction = new confirmForm();
 
-            snakeTable.FillRectangle(br, 1 + cell[0] * sizeCellTable.Value, 1 + cell[1] * sizeCellTable.Value, sizeCellTable.Value - 1, sizeCellTable.Value - 1);
+                    direction.label.Text = "Выберите направление:";
+                    direction.direction.Visible = true;
+                    direction.scoreUnlock.Visible = false;
+
+                    direction.ShowDialog();
+
+                    int index = Convert.ToInt32(direction.direction.SelectedIndex + 1);
+
+                    if (index != 0)
+                    {
+                        blocks.Add(new int[] { cell[0], cell[1], menuSelectBlock, index });
+
+                        int[] pos = new int[2] { 0, 0 };
+
+                        switch (index)
+                        {
+                            case 1: pos[1] = -sizeCellTable.Value / 2; break;
+                            case 2: pos[0] = -sizeCellTable.Value / 2; break;
+                            case 3: pos[1] = sizeCellTable.Value / 2; break;
+                            case 4: pos[0] = sizeCellTable.Value / 2; break;
+                        }
+
+                        snakeTable.FillRectangle(br, 1 + cell[0] * sizeCellTable.Value, 1 + cell[1] * sizeCellTable.Value, sizeCellTable.Value - 1, sizeCellTable.Value - 1);
+                        snakeTable.DrawLine(new Pen(Color.Red), cell[0] * sizeCellTable.Value + sizeCellTable.Value / 2, cell[1] * sizeCellTable.Value + sizeCellTable.Value / 2, cell[0] * sizeCellTable.Value + sizeCellTable.Value / 2 - pos[0], cell[1] * sizeCellTable.Value + sizeCellTable.Value / 2 + pos[1]);
+                    }
+                    else
+                    {
+                        br = Brushes.White;
+                        snakeTable.FillRectangle(br, 1 + cell[0] * sizeCellTable.Value, 1 + cell[1] * sizeCellTable.Value, sizeCellTable.Value - 1, sizeCellTable.Value - 1);
+                    }
+                }
+                else
+                {
+                    blocks.Add(new int[] { cell[0], cell[1], menuSelectBlock });
+                    snakeTable.FillRectangle(br, 1 + cell[0] * sizeCellTable.Value, 1 + cell[1] * sizeCellTable.Value, sizeCellTable.Value - 1, sizeCellTable.Value - 1);
+                }
+            }
+            else snakeTable.FillRectangle(br, 1 + cell[0] * sizeCellTable.Value, 1 + cell[1] * sizeCellTable.Value, sizeCellTable.Value - 1, sizeCellTable.Value - 1);
+
         }
 
         private void table_Click(object sender, EventArgs e)
@@ -134,7 +193,11 @@ namespace SnakeGame
 
             int[] cell = new int[] { map(point.X, 0, tableXSize.Value * sizeCellTable.Value, 0, tableXSize.Value), map(point.Y, 0, tableYSize.Value * sizeCellTable.Value, 0, tableYSize.Value) };
 
-            if (cell[0] != -1 && cell[1] != -1) fillBlock(cell);
+            //MessageBox.Show(cell[0].ToString() + " " +cell[1].ToString());
+
+            if (cell[0] >= 0 && cell[1] >= 0 && cell[0] <= tableXSize.Value && cell[1] < tableYSize.Value) fillBlock(cell);
+
+            //clearTable();
         }
 
         private void table_Paint(object sender, PaintEventArgs e)
@@ -254,7 +317,7 @@ namespace SnakeGame
 
                 int[] cell = new int[] { map(point.X, 0, tableXSize.Value * sizeCellTable.Value, 0, tableXSize.Value), map(point.Y, 0, tableYSize.Value * sizeCellTable.Value, 0, tableYSize.Value) };
 
-                if (cell[0] != -1 && cell[1] != -1) fillBlock(cell);
+                if (cell[0] >= 0 && cell[1] >= 0 && cell[0] <= tableXSize.Value && cell[1] < tableYSize.Value) fillBlock(cell);
             }
         }
 
@@ -262,22 +325,23 @@ namespace SnakeGame
         {
             int[,] tableFill = new int[tableXSize.Value, tableYSize.Value];
 
-            foreach (int[] block in blocks) 
+            List<int[]> foodPos = new List<int[]>();
+
+            foreach (int[] block in blocks)
             {
-                if (block[2] == 0 || block[2] == 1)
+                if (block[2] == 0)
                 {
                     tableFill[block[0], block[1]] = 1;
                 }
-            }
-
-            List<int[]> foodPos = new List<int[]>();
-
-            foreach (int[] point in blocks)
-            {
-                if (point[2] == 2)
+                
+                if (block[2] == 1)
                 {
-                    foodPos.Add(new int[] { point[0], point[1] });
-                    break;
+                    tableFill[block[0], block[1]] = block[3];
+                }
+
+                if (block[2] == 2)
+                {
+                    foodPos.Add(new int[] { block[0], block[1] });
                 }
             }
 
@@ -285,25 +349,25 @@ namespace SnakeGame
             {
                 int[] point = foodPos[i];
 
-                if (point[0] - 1 >= 0 && tableFill[point[0] - 1,point[1]] == 0)
+                if (point[0] - 1 >= 0 && (tableFill[point[0] - 1, point[1]] == 0 || (tableFill[point[0] - 1, point[1]] > 1 && scoreTest.Value > tableFill[point[0] - 1, point[1]])))
                 {
                     foodPos.Add(new int[] { point[0] - 1, point[1] });
-                    tableFill[point[0] - 1, point[1]] = 2;
+                    tableFill[point[0] - 1, point[1]] = -1;
                 }
-                if (point[0] + 1 < tableXSize.Value && tableFill[point[0] + 1, point[1]] == 0)
+                if (point[0] + 1 < tableXSize.Value && (tableFill[point[0] + 1, point[1]] == 0 || (tableFill[point[0] + 1, point[1]] > 1 && scoreTest.Value > tableFill[point[0] + 1, point[1]])))
                 {
                     foodPos.Add(new int[] { point[0] + 1, point[1] });
-                    tableFill[point[0] + 1, point[1]] = 2;
+                    tableFill[point[0] + 1, point[1]] = -1;
                 }
-                if (point[1] - 1 >= 0 && tableFill[point[0], point[1] - 1] == 0)
+                if (point[1] - 1 >= 0 && (tableFill[point[0], point[1] - 1] == 0 || (tableFill[point[0], point[1] - 1] > 1 && scoreTest.Value > tableFill[point[0], point[1] - 1])))
                 {
-                    foodPos.Add(new int[] { point[0], point[1]-1 });
-                    tableFill[point[0], point[1] - 1] = 2;
+                    foodPos.Add(new int[] { point[0], point[1] - 1 });
+                    tableFill[point[0], point[1] - 1] = -1;
                 }
-                if (point[1] + 1 < tableYSize.Value && tableFill[point[0], point[1] + 1] == 0)
+                if (point[1] + 1 < tableYSize.Value && (tableFill[point[0], point[1] + 1] == 0 || (tableFill[point[0], point[1] + 1] > 1 && scoreTest.Value > tableFill[point[0], point[1] + 1])))
                 {
-                    foodPos.Add(new int[] { point[0], point[1]+1 });
-                    tableFill[point[0], point[1] + 1] = 2;
+                    foodPos.Add(new int[] { point[0], point[1] + 1 });
+                    tableFill[point[0], point[1] + 1] = -1;
                 }
             }
 
@@ -317,7 +381,28 @@ namespace SnakeGame
         {
             snakeLevelGame level = new snakeLevelGame();
 
-            level.loadLevel();
+            string json = level.loadLevel();
+
+            if (json != null)
+            {
+                structLevelGame levelEdit = new structLevelGame();
+
+                levelEdit = JsonConvert.DeserializeObject<structLevelGame>(json);
+
+                blocks = levelEdit.table;
+                tableXSize.Value = levelEdit.tableSize[0];
+                tableYSize.Value = levelEdit.tableSize[1];
+                sizeCellTable.Value = levelEdit.cellSize;
+                barrierGame.Checked = levelEdit.barrier;
+                snakeSpeed.Value = levelEdit.speedSnake;
+                foodGenTime.Value = levelEdit.timeFood;
+                timeLevel.Value = levelEdit.timeLeft;
+                scoreWin.Value = levelEdit.scoreWin;
+
+                tabLevel_Selected(null, null);
+
+                clearTable();
+            }
         }
 
         private void saveLevel(object sender, EventArgs e)

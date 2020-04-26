@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>w\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -47,6 +47,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>snake.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -64,6 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controlsSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="controlsSetting.Designer.cs">
+      <DependentUpon>controlsSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="LevelGameCreator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,12 +97,15 @@
     <Compile Include="snake.cs" />
     <Compile Include="snakeLevelGame.cs" />
     <Compile Include="structLevelGame.cs" />
-    <Compile Include="unlockDoor.cs">
+    <Compile Include="confirmForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="unlockDoor.Designer.cs">
-      <DependentUpon>unlockDoor.cs</DependentUpon>
+    <Compile Include="confirmForm.Designer.cs">
+      <DependentUpon>confirmForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="controlsSetting.resx">
+      <DependentUpon>controlsSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LevelGameCreator.resx">
       <DependentUpon>LevelGameCreator.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,8 +127,8 @@
       <DependentUpon>Settings.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="unlockDoor.resx">
-      <DependentUpon>unlockDoor.cs</DependentUpon>
+    <EmbeddedResource Include="confirmForm.resx">
+      <DependentUpon>confirmForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -155,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\block3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="snake.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

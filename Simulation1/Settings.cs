@@ -26,7 +26,7 @@ namespace SnakeGame
             snakeSpeed.Value = snakeGame.Properties.Settings.Default.timeSnake;
             barrierGame.Checked = snakeGame.Properties.Settings.Default.barrier;
 
-            MessageBox.Show((Screen.PrimaryScreen.Bounds.Height * Screen.PrimaryScreen.Bounds.Width).ToString()) ;
+            //MessageBox.Show((Screen.PrimaryScreen.Bounds.Height * Screen.PrimaryScreen.Bounds.Width).ToString()) ;
 
             updateDataText();
         }
@@ -68,9 +68,9 @@ namespace SnakeGame
 
         private void updateDataText()
         {
-            label1.Text = "Размер поля(Ширина): " + tableXSize.Value;
-            label4.Text = "Размер поля(Высота): " + tableYSize.Value;
-            label2.Text = "Размер ячейки: " + sizeCellTable.Value + "x" + sizeCellTable.Value;
+            widthLabel.Text = "Размер поля(Ширина): " + tableXSize.Value;
+            heightLabel.Text = "Размер поля(Высота): " + tableYSize.Value;
+            sizeCellLabel.Text = "Размер ячейки: " + sizeCellTable.Value + "x" + sizeCellTable.Value;
         }
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
