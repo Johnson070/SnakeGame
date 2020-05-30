@@ -96,6 +96,13 @@ namespace SnakeGame
 
             if (levelClass != null)
             {
+                while (numCells[0] * cellSize > Screen.PrimaryScreen.Bounds.Width - 80 || numCells[1] * cellSize > Screen.PrimaryScreen.Bounds.Height - 240)
+                {
+                    cellSize -= 1;
+                }
+
+                levelClass.game.cellSize = cellSize;
+
                 foreach (int[] startPos in levelClass.game.table)
                 {
                     if (startPos[2] == 2)
@@ -254,10 +261,10 @@ namespace SnakeGame
                     }
                 }
 
-                while (levelClass.game.tableSize[0] * levelClass.game.cellSize * levelClass.game.tableSize[1] * levelClass.game.cellSize < 250000)
-                {
-                    levelClass.game.cellSize -= 1;
-                }
+                //while (levelClass.game.tableSize[0] * levelClass.game.cellSize > Screen.PrimaryScreen.Bounds.Width - 80 || levelClass.game.tableSize[1] * levelClass.game.cellSize > Screen.PrimaryScreen.Bounds.Height - 240)
+                //{
+                //    levelClass.game.cellSize -= 1;
+                //}
 
 
                 newGame(new int[] { levelClass.game.tableSize[0], levelClass.game.tableSize[1] }, levelClass.game.cellSize, levelClass.game.barrier, direction);

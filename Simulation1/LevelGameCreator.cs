@@ -92,15 +92,7 @@ namespace SnakeGame
         {
             int buffer =  Convert.ToInt32((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
 
-            if (buffer >= tableXSize.Value || buffer >= tableYSize.Value)
-            {
-                return -1;
-            }
-            else if (buffer < 0)
-            {
-                return -1;
-            }
-            else return buffer;
+            return buffer;
         }
 
         private void fillBlock(int[] cell)
@@ -195,7 +187,7 @@ namespace SnakeGame
 
             //MessageBox.Show(cell[0].ToString() + " " +cell[1].ToString());
 
-            if (cell[0] >= 0 && cell[1] >= 0 && cell[0] <= tableXSize.Value && cell[1] < tableYSize.Value) fillBlock(cell);
+            if (cell[0] >= 0 && cell[1] >= 0 && cell[0] < tableXSize.Value && cell[1] < tableYSize.Value) fillBlock(cell);
 
             //clearTable();
         }
@@ -317,7 +309,7 @@ namespace SnakeGame
 
                 int[] cell = new int[] { map(point.X, 0, tableXSize.Value * sizeCellTable.Value, 0, tableXSize.Value), map(point.Y, 0, tableYSize.Value * sizeCellTable.Value, 0, tableYSize.Value) };
 
-                if (cell[0] >= 0 && cell[1] >= 0 && cell[0] <= tableXSize.Value && cell[1] < tableYSize.Value) fillBlock(cell);
+                if (cell[0] >= 0 && cell[1] >= 0 && cell[0] < tableXSize.Value && cell[1] < tableYSize.Value) fillBlock(cell);
             }
         }
 
@@ -388,7 +380,7 @@ namespace SnakeGame
                 structLevelGame levelEdit = new structLevelGame();
 
                 levelEdit = JsonConvert.DeserializeObject<structLevelGame>(json);
-
+                
                 blocks = levelEdit.table;
                 tableXSize.Value = levelEdit.tableSize[0];
                 tableYSize.Value = levelEdit.tableSize[1];
